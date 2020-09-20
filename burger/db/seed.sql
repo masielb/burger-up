@@ -4,3 +4,5 @@ VALUES
 ('Carolina Burger', true),
 ('Sweet Potato and Quinoa Burger', false),
 ('Thai Veggie Burger', true);
+
+SELECT * FROM burgers;
