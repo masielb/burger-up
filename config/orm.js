@@ -1,32 +1,31 @@
 // Import MySQL connection
-const connection = require("../config/connection.js");
+const connection = require("./connection.js");
 
 const orm = {
-    all: function(tableName, cb) {
+    selectAll: function(tableName, cb) {
         var queryString = `SELECT * FROM ??`;
-        connection.query(queryString, [tableName, cb], (err, res) => {
+        connection.query(queryString, [tableName], (err, result) => {
 
             if (err) throw err;
-            // return result
-            cb(result;)
-        // });
+            cb(result);
+        });
     },
-    insertOne: function(tableName, cb) {
-        var queryString = `INSERT INTO  ${tableName}`;
-        connection.query(queryString, vals, (err, res) => {
+    insertOne: function(table, cols, vals, cb) {
+        var queryString = "INSERT INTO  ??";
+        connection.query(queryString, [table, cols, vals], (err, res) => {
 
 			if (err) throw err;
             cb(res);
-        // });
+        });
     },
-    updateOne: function(tableName, cb) {
-        var queryString = `UPDATE ?? SET ? WHERE ${condition}`;
-        connection.query(queryString, [tableName, obj], (err, res) => {
+    updateOne: function(table, cols, condition, cb) {
+        var queryString = "UPDATE ?? SET ? WHERE ??";
+        connection.query(queryString, [table, cols, condition], (err, res) => {
 
             if (err) throw err;
             cb(res);
-        // });
-    },
+        });
+    }
 };
 
 // Exports ORM Object
