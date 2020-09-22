@@ -6,14 +6,14 @@ var burger = require("../models/burger.js");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", (req, res) => {
-	burger.all((data) => {
-		var hbsObj = { burger: data };
+	burger.selectAll((data) => {
+		var hbsObj = {burger: data};
 		res.render("index", hbsObj);
 	});
 });
 
 // Post Route: Add Burger
-router.post("/api/burger", (req, res) => {
+router.post("/burgers", (req, res) => {
 	burger.insertOne(
 		// → orm.js insertOne
 		["burger_name", "devoured"],
@@ -21,17 +21,23 @@ router.post("/api/burger", (req, res) => {
 		[req.body.burger_name, req.body.devoured],
 		(result) => {
 
-            res.redirect("/");
+            res.status(200).end();
 		},
 	);
 });
 
-// Get burger to update
-router.get("/api/burger/update", (req, res) => {
-	burger.updateOne(req.query.id, { devoured: req.query.devoured }, (result) => {
-		res.redirect("/");
-	});
-
+// Get burger to update NOT SURE ABOUT THIS
+router.put("/burger/:id", (req, res) => {
+    const condition = "id= " + req.params.id;
+    burger.updateOne(
+        {devoured: req.body.devoured},
+        condition, (result) => {
+            if (result.changedRows === 0) {
+                return res.status(404).end();
+            }
+            res.status(200).end();
+        }
+    );
 });
 
 // Export routes for server.js to use
