@@ -23,7 +23,7 @@ And run: ```node server.js```
 HTML, CSS, JavaScript, Express, Node JS, MySQL, Handlebars
 
 ## Application Demo
-![applicationdemo](fullvideo.gif)
+![applicationdemo](demo.png)
 
 ## Contact Information
 * Masiel Bautista
